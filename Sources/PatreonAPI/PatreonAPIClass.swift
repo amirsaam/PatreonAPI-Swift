@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Patreon Class
-final class PatreonAPI {
+public final class PatreonAPI {
     internal let clientID: String
     internal let clientSecret: String
     internal let creatorAccessToken: String
