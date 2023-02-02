@@ -28,7 +28,7 @@ public struct UserIdentityData: Codable {
         public let full_name: String
         public let hide_pledges: Bool?
         public let image_url: String?
-        public let is_email_verified: Bool
+        public let is_email_verified: Bool?
         public let last_name: String?
         public let like_count: Int
         public let social_connections: SocialConnections
