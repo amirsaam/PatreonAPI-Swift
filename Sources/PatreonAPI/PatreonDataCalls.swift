@@ -19,7 +19,7 @@ extension PatreonAPI {
         let queries = [
             URLQueryItem(name: "include", value: "memberships,campaign"),
             URLQueryItem(name: "fields[user]",
-                         value: "about,can_see_nsfw,created,email,first_name,full_name,hide_pledges,is_email_verified,last_name,like_count,social_connections,thumb_url,url,vanity")
+                         value: "about,can_see_nsfw,created,email,first_name,full_name,hide_pledges,image_url,is_email_verified,last_name,like_count,social_connections,thumb_url,url,vanity")
         ]
         let fetchedData = await fetchPatreonData(userPAT, path, queries,
                                                  PatreonUserIdentity.self)

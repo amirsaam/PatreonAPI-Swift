@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CodableAny
 
 public struct PatreonUserIdentity: Codable {
     public let data: UserIdentityData
@@ -69,12 +70,7 @@ public struct UserIdentityData: Codable {
 }
   
 public struct UserIdentityIncluded: Codable {
-    public let attributes: IncludedAttributes
+    public let attributes: [String: CodableAny]?
     public let id: String
     public let type: String
-    
-    public struct IncludedAttributes: Codable {
-        public let is_monthly: Bool
-        public let summary: String
-    }
 }
