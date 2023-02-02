@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "78424be314842833c04bc3bef5b72e85fff99204",
+        "version" : "5.6.4"
+      }
+    },
+    {
+      "identity" : "codableany",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amirsaam/CodableAny.git",
+      "state" : {
+        "revision" : "eec6d8e967ff9489e9a20a83d081585e6799bd70",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "semaphore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/Semaphore.git",
+      "state" : {
+        "revision" : "e67f3d2240440d9f892a382ae08cacc86f37625d",
+        "version" : "0.0.6"
+      }
+    }
+  ],
+  "version" : 2
+}
