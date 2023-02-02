@@ -5,10 +5,15 @@
 //  Created by Amir Mohammadi on 11/13/1401 AP.
 //
 
-import SwiftUI
 import Foundation
 import Alamofire
 import Semaphore
+
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 // MARK: - Patreon OAuth Calls
 extension PatreonAPI {
@@ -25,7 +30,11 @@ extension PatreonAPI {
             URLQueryItem(name: "redirect_uri", value: redirectURI)
         ]
         guard let url = urlComponents.url else { return }
-        NSWorkspace.shared.open(url)
+        #if os(iOS)
+            UIApplication.shared.open(url)
+        #elseif os(macOS)
+            NSWorkspace.shared.open(url)
+        #endif
     }
     
     // Get User Tokens
