@@ -17,8 +17,9 @@ extension PatreonAPI {
         let returnValue: PatreonUserIdentity?
         let path = "identity"
         let queries = [
+            URLQueryItem(name: "include", value: "memberships,campaign"),
             URLQueryItem(name: "fields[user]",
-                         value: "about,created,email,first_name,full_name,image_url,last_name,social_connections,thumb_url,url,vanity")
+                         value: "about,can_see_nsfw,created,email,first_name,full_name,hide_pledges,is_email_verified,last_name,like_count,social_connections,thumb_url,url,vanity")
         ]
         let fetchedData = await fetchPatreonData(userPAT, path, queries,
                                                  PatreonUserIdentity.self)
@@ -83,13 +84,13 @@ extension PatreonAPI {
         let returnValue: PatreonCampaignMembers?
         let path = "campaigns/" + campaignID + "/members"
         let query = [
-            URLQueryItem(name: "include", value: "currently_entitled_tiers,address"),
+            URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
             URLQueryItem(name: "fields[member]",
-                         value: "full_name,is_follower,last_charge_date,last_charge_status,lifetime_support_cents,currently_entitled_amount_cents,patron_status"),
+                         value: "campaign_lifetime_support_cents,currently_entitled_amount_cents,email,full_name,is_follower,last_charge_date,last_charge_status,lifetime_support_cents,next_charge_date,note,patron_status,pledge_cadence,pledge_relationship_start,will_pay_amount_cents"),
             URLQueryItem(name: "fields[tier]",
-                         value: "amount_cents,created_at,description,discord_role_ids,edited_at,patron_count,published,published_at,requires_shipping,title,url"),
+                         value: "amount_cents,created_at,description,discord_role_ids,edited_at,image_url,patron_count,post_count,published,published_at,remaining,requires_shipping,title,unpublished_at,url,user_limit"),
             URLQueryItem(name: "fields[address]",
-                         value: "addressee,city,line_1,line_2,phone_number,postal_code,state")
+                         value: "addressee,city,country,created_at,line_1,line_2,phone_number,postal_code,state")
         ]
         let fetchedData = await fetchPatreonData(creatorAccessToken,
                                                  path, query,
@@ -107,11 +108,15 @@ extension PatreonAPI {
     // Returns Details about a Campaign Patron identifies by ID
     public func getMemberForCampaignByID(_ memberID: String) async -> PatronFetchedByID? {
         let returnValue: PatronFetchedByID?
-        let path = "campaigns/members/" + memberID
+        let path = "members/" + memberID
         let query = [
-            URLQueryItem(name: "fields[address]", value: "line_1,line_2,addressee,postal_code,city"),
-            URLQueryItem(name: "fields[member]", value: "full_name,is_follower,last_charge_date"),
-            URLQueryItem(name: "include", value: "address,user")
+            URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
+            URLQueryItem(name: "fields[member]",
+                         value: "campaign_lifetime_support_cents,currently_entitled_amount_cents,email,full_name,is_follower,last_charge_date,last_charge_status,lifetime_support_cents,next_charge_date,note,patron_status,pledge_cadence,pledge_relationship_start,will_pay_amount_cents"),
+            URLQueryItem(name: "fields[tier]",
+                         value: "amount_cents,created_at,description,discord_role_ids,edited_at,image_url,patron_count,post_count,published,published_at,remaining,requires_shipping,title,unpublished_at,url,user_limit"),
+            URLQueryItem(name: "fields[address]",
+                         value: "addressee,city,country,created_at,line_1,line_2,phone_number,postal_code,state")
         ]
         let fetchedData = await fetchPatreonData(creatorAccessToken,
                                                  path, query,

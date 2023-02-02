@@ -30,10 +30,36 @@ public struct IdTypeArray: Codable {
     }
 }
 
+public struct IdTypeDataLink: Codable {
+    public let data: IdType
+    public let links: RelatedLink
+}
+
 public struct SelfLink: Codable {
     public let `self`: String
 }
 
 public struct RelatedLink: Codable {
     public let related: String
+}
+
+public struct PaginationPlain: Codable {
+    public let pagination: Pagination
+
+    public struct Pagination: Codable {
+        public let total: Int
+    }
+}
+
+public struct PaginationCursor: Codable {
+    public let pagination: Pagination
+    
+    public struct Pagination: Codable {
+        public let cursors: Cursors
+        public let total: Int
+        
+        public struct Cursors: Codable {
+            public let next: String?
+        }
+    }
 }

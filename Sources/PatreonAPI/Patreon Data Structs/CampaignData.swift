@@ -11,14 +11,7 @@ import CodableAny
 // MARK: - Campaigns owned by a User
 public struct PatronOwnedCampaigns: Codable {
     public let data: [CampaignData]
-    public let meta: Meta
-    
-    public struct Meta: Codable {
-        public let pagination: Pagination
-        public struct Pagination: Codable {
-            public let total: Int
-        }
-    }
+    public let meta: PaginationPlain
 }
 
 // MARK: - Specific Campaign Details
@@ -89,25 +82,6 @@ public struct CampaignIncludedTier: Codable {
     public let attributes: CampaignTierAttributes
     public let id: String
     public let type: String
-    
-    public struct CampaignTierAttributes: Codable {
-        public let amount_cents: Int
-        public let created_at: String
-        public let description: String?
-        public let discord_role_ids: [String: String]?
-        public let edited_at: String
-        public let image_url: String?
-        public let patron_count: Int
-        public let post_count: Int?
-        public let published: Bool
-        public let published_at: String?
-        public let remaining: Int?
-        public let requires_shipping: Bool
-        public let title: String
-        public let unpublished_at: String?
-        public let url: String
-        public let user_limit: Int?
-    }
 }
 
 /// For decoding `CampaignIncludedAny` based on `type == "benefit"`
@@ -115,22 +89,4 @@ public struct CampaignIncludedBenefit: Codable {
     public let attributes: CampaignBenefitAttributes
     public let id: String
     public let type: String
-    
-    public struct CampaignBenefitAttributes: Codable {
-        public let app_external_id: String?
-        public let app_meta: [String: String]?
-        public let benefit_type: String?
-        public let created_at: String
-        public let deliverables_due_today_count: Int
-        public let delivered_deliverables_count: Int
-        public let description: String?
-        public let is_deleted: Bool
-        public let is_ended: Bool
-        public let is_published: Bool
-        public let next_deliverable_due_date: String?
-        public let not_delivered_deliverables_count: Int
-        public let rule_type: String?
-        public let tiers_count: Int
-        public let title: String
-    }
 }
