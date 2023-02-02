@@ -27,12 +27,12 @@ public struct UserIdentityData: Codable {
         public let first_name: String?
         public let full_name: String
         public let hide_pledges: Bool?
-        public let image_url: String
+        public let image_url: String?
         public let is_email_verified: Bool
         public let last_name: String?
         public let like_count: Int
         public let social_connections: SocialConnections
-        public let thumb_url: String
+        public let thumb_url: String?
         public let url: String
         public let vanity: String?
         
