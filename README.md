@@ -155,9 +155,10 @@ For more information about decoding structs please go to [this directory](https:
 
 ## To Do
 
+- [ ] Add Missing API Calls(?)
 - [ ] Write Xcode Tests
 - [ ] Make Pod
-- [ ] Deply Github Action
+- [ ] Deploy Github Action
 
 ## Dependencies 
 
