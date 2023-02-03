@@ -13,7 +13,7 @@ import Semaphore
 extension PatreonAPI {
     
     // Returns User's Patreon Account Information
-    public func getUserIdentity(_ userPAT: String) async -> PatreonUserIdentity? {
+    public func getUserIdentity(userAccessToken: String) async -> PatreonUserIdentity? {
         let returnValue: PatreonUserIdentity?
         let path = "identity"
         let queries = [
@@ -21,7 +21,7 @@ extension PatreonAPI {
             URLQueryItem(name: "fields[user]",
                          value: "about,can_see_nsfw,created,email,first_name,full_name,hide_pledges,image_url,is_email_verified,last_name,like_count,social_connections,thumb_url,url,vanity")
         ]
-        let fetchedData = await fetchPatreonData(userPAT, path, queries,
+        let fetchedData = await fetchPatreonData(userAccessToken, path, queries,
                                                  PatreonUserIdentity.self)
         if let identity = fetchedData {
             returnValue = identity
@@ -34,14 +34,14 @@ extension PatreonAPI {
     }
     
     // Returns Campaigns owned by the User
-    public func getUserOwnedCampaigns(_ userPAT: String) async -> PatronOwnedCampaigns? {
+    public func getUserOwnedCampaigns(userAccessToken: String) async -> PatronOwnedCampaigns? {
         let returnValue: PatronOwnedCampaigns?
         let path = "campaigns"
         let queries = [
             URLQueryItem(name: "fields[campaign]",
                          value: "created_at,creation_name,discord_server_id,google_analytics_id,has_rss,has_sent_rss_notify,image_small_url,image_url,is_charged_immediately,is_monthly,is_nsfw,main_video_embed,main_video_url,one_liner,patron_count,pay_per_name,pledge_url,published_at,rss_artwork_url,rss_feed_title,show_earnings,summary,thanks_embed,thanks_msg,thanks_video_url,url,vanity")
         ]
-        let fetchedData = await fetchPatreonData(userPAT, path, queries,
+        let fetchedData = await fetchPatreonData(userAccessToken, path, queries,
                                                  PatronOwnedCampaigns.self)
         if let ownedCampaigns = fetchedData {
             returnValue = ownedCampaigns
@@ -106,7 +106,7 @@ extension PatreonAPI {
     }
     
     // Returns Details about a Campaign Patron identifies by ID
-    public func getMemberForCampaignByID(_ memberID: String) async -> PatronFetchedByID? {
+    public func getMemberForCampaignByID(memberID: String) async -> PatronFetchedByID? {
         let returnValue: PatronFetchedByID?
         let path = "members/" + memberID
         let query = [

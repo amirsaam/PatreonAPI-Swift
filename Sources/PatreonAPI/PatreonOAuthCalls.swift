@@ -38,8 +38,8 @@ extension PatreonAPI {
     }
     
     // Get User Tokens
-    public func getOAuthTokens(_ code: String) async -> PatronOAuth? {
-        let params: [String: String] = ["code": code,
+    public func getOAuthTokens(callbackCode: String) async -> PatronOAuth? {
+        let params: [String: String] = ["code": callbackCode,
                                         "grant_type": "authorization_code",
                                         "client_id": clientID,
                                         "client_secret": clientSecret,
@@ -48,9 +48,9 @@ extension PatreonAPI {
     }
     
     // Refresh User Tokens
-    public func refreshOAuthTokens(_ refreshToken: String) async -> PatronOAuth? {
+    public func refreshOAuthTokens(userRefreshToken: String) async -> PatronOAuth? {
         let params: [String: String] = ["grant_type": "refresh_token",
-                                        "refresh_token": refreshToken,
+                                        "refresh_token": userRefreshToken,
                                         "client_id": clientID,
                                         "client_secret": clientSecret]
         return await fetchOAuthResponse(params)
