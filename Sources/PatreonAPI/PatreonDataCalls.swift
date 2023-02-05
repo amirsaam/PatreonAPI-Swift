@@ -18,11 +18,11 @@ extension PatreonAPI {
         let path = "identity"
         let queries = [
             URLQueryItem(name: "include", value: "memberships,campaign"),
-            URLQueryItem(name: "fields[user]",
-                         value: "about,can_see_nsfw,created,email,first_name,full_name,hide_pledges,image_url,is_email_verified,last_name,like_count,social_connections,thumb_url,url,vanity")
+            URLQueryItem(name: "fields[user]", value: fieldsUserQueryValue)
         ]
-        let fetchedData = await fetchPatreonData(userAccessToken, path, queries,
-                                                 PatreonUserIdentity.self)
+        let fetchedData = await fetchPatreonData(accessToken: userAccessToken,
+                                                 apiPath: path, apiQueries: queries,
+                                                 returnType: PatreonUserIdentity.self)
         if let identity = fetchedData {
             returnValue = identity
             debugPrint(identity)
@@ -38,11 +38,11 @@ extension PatreonAPI {
         let returnValue: PatronOwnedCampaigns?
         let path = "campaigns"
         let queries = [
-            URLQueryItem(name: "fields[campaign]",
-                         value: "created_at,creation_name,discord_server_id,google_analytics_id,has_rss,has_sent_rss_notify,image_small_url,image_url,is_charged_immediately,is_monthly,is_nsfw,main_video_embed,main_video_url,one_liner,patron_count,pay_per_name,pledge_url,published_at,rss_artwork_url,rss_feed_title,show_earnings,summary,thanks_embed,thanks_msg,thanks_video_url,url,vanity")
+            URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue)
         ]
-        let fetchedData = await fetchPatreonData(userAccessToken, path, queries,
-                                                 PatronOwnedCampaigns.self)
+        let fetchedData = await fetchPatreonData(accessToken: userAccessToken,
+                                                 apiPath: path, apiQueries: queries,
+                                                 returnType: PatronOwnedCampaigns.self)
         if let ownedCampaigns = fetchedData {
             returnValue = ownedCampaigns
             debugPrint(ownedCampaigns)
@@ -59,16 +59,13 @@ extension PatreonAPI {
         let path = "campaigns/" + campaignID
         let queries = [
             URLQueryItem(name: "include", value: "benefits,creator,goals,tiers"),
-            URLQueryItem(name: "fields[campaign]",
-                         value: "created_at,creation_name,discord_server_id,google_analytics_id,has_rss,has_sent_rss_notify,image_small_url,image_url,is_charged_immediately,is_monthly,is_nsfw,main_video_embed,main_video_url,one_liner,patron_count,pay_per_name,pledge_url,published_at,rss_artwork_url,rss_feed_title,show_earnings,summary,thanks_embed,thanks_msg,thanks_video_url,url,vanity"),
-            URLQueryItem(name: "fields[tier]",
-                         value: "amount_cents,created_at,description,discord_role_ids,edited_at,image_url,patron_count,post_count,published,published_at,remaining,requires_shipping,title,unpublished_at,url,user_limit"),
-            URLQueryItem(name: "fields[benefit]",
-                         value: "app_external_id,app_meta,benefit_type,created_at,deliverables_due_today_count,delivered_deliverables_count,description,is_deleted,is_ended,is_published,next_deliverable_due_date,not_delivered_deliverables_count,rule_type,tiers_count,title")
+            URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue),
+            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue),
+            URLQueryItem(name: "fields[benefit]", value: fieldsBenefitQueryValue)
         ]
-        let fetchedData = await fetchPatreonData(creatorAccessToken,
-                                                 path, queries,
-                                                 PatreonCampaignInfo.self)
+        let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
+                                                 apiPath: path, apiQueries: queries,
+                                                 returnType: PatreonCampaignInfo.self)
         if let campaignData = fetchedData {
             returnValue = campaignData
             debugPrint(campaignData)
@@ -85,16 +82,13 @@ extension PatreonAPI {
         let path = "campaigns/" + campaignID + "/members"
         let query = [
             URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
-            URLQueryItem(name: "fields[member]",
-                         value: "campaign_lifetime_support_cents,currently_entitled_amount_cents,email,full_name,is_follower,last_charge_date,last_charge_status,lifetime_support_cents,next_charge_date,note,patron_status,pledge_cadence,pledge_relationship_start,will_pay_amount_cents"),
-            URLQueryItem(name: "fields[tier]",
-                         value: "amount_cents,created_at,description,discord_role_ids,edited_at,image_url,patron_count,post_count,published,published_at,remaining,requires_shipping,title,unpublished_at,url,user_limit"),
-            URLQueryItem(name: "fields[address]",
-                         value: "addressee,city,country,created_at,line_1,line_2,phone_number,postal_code,state")
+            URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue),
+            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue),
+            URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue)
         ]
-        let fetchedData = await fetchPatreonData(creatorAccessToken,
-                                                 path, query,
-                                                 PatreonCampaignMembers.self)
+        let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
+                                                 apiPath: path, apiQueries: query,
+                                                 returnType: PatreonCampaignMembers.self)
         if let campaignMembers = fetchedData {
             returnValue = campaignMembers
             debugPrint(campaignMembers)
@@ -111,16 +105,13 @@ extension PatreonAPI {
         let path = "members/" + memberID
         let query = [
             URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
-            URLQueryItem(name: "fields[member]",
-                         value: "campaign_lifetime_support_cents,currently_entitled_amount_cents,email,full_name,is_follower,last_charge_date,last_charge_status,lifetime_support_cents,next_charge_date,note,patron_status,pledge_cadence,pledge_relationship_start,will_pay_amount_cents"),
-            URLQueryItem(name: "fields[tier]",
-                         value: "amount_cents,created_at,description,discord_role_ids,edited_at,image_url,patron_count,post_count,published,published_at,remaining,requires_shipping,title,unpublished_at,url,user_limit"),
-            URLQueryItem(name: "fields[address]",
-                         value: "addressee,city,country,created_at,line_1,line_2,phone_number,postal_code,state")
+            URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue),
+            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue),
+            URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue)
         ]
-        let fetchedData = await fetchPatreonData(creatorAccessToken,
-                                                 path, query,
-                                                 PatronFetchedByID.self)
+        let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
+                                                 apiPath: path, apiQueries: query,
+                                                 returnType: PatronFetchedByID.self)
         if let fetchedPatron = fetchedData {
             returnValue = fetchedPatron
             debugPrint(fetchedPatron)
@@ -133,10 +124,10 @@ extension PatreonAPI {
     
     // Fetch Patreon Data Fucntion
     fileprivate func fetchPatreonData<T: Codable>(
-        _ accessToken: String,
-        _ apiPath: String,
-        _ apiQueries: [URLQueryItem],
-        _ returnType: T.Type
+        accessToken: String,
+        apiPath: String,
+        apiQueries: [URLQueryItem],
+        returnType: T.Type
     ) async -> T? {
         
         let semaphore = AsyncSemaphore(value: 0)

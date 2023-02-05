@@ -44,7 +44,7 @@ extension PatreonAPI {
                                         "client_id": clientID,
                                         "client_secret": clientSecret,
                                         "redirect_uri": redirectURI]
-        return await fetchOAuthResponse(params)
+        return await fetchOAuthResponse(parameters: params)
     }
     
     // Refresh User Tokens
@@ -53,12 +53,12 @@ extension PatreonAPI {
                                         "refresh_token": userRefreshToken,
                                         "client_id": clientID,
                                         "client_secret": clientSecret]
-        return await fetchOAuthResponse(params)
+        return await fetchOAuthResponse(parameters: params)
     }
     
     // Fetch Tokens Fucntion
     fileprivate func fetchOAuthResponse(
-        _ params: Dictionary<String, String>
+        parameters: Dictionary<String, String>
     ) async -> PatronOAuth? {
         
         let semaphore = AsyncSemaphore(value: 0)
@@ -69,7 +69,7 @@ extension PatreonAPI {
         
         AF.request(url,
                    method: .post,
-                   parameters: params,
+                   parameters: parameters,
                    headers: headers)
         .responseDecodable(of: PatronOAuth.self) {
             (response: DataResponse<PatronOAuth, AFError>) in
