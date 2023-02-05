@@ -18,7 +18,7 @@ extension PatreonAPI {
         let path = "identity"
         let queries = [
             URLQueryItem(name: "include", value: "memberships,campaign"),
-            URLQueryItem(name: "fields[user]", value: fieldsUserQueryValue)
+            URLQueryItem(name: "fields[user]", value: fieldsUserQueryValue.replacingOccurrences(of: "%0A", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: userAccessToken,
                                                  apiPath: path, apiQueries: queries,
@@ -38,7 +38,7 @@ extension PatreonAPI {
         let returnValue: PatronOwnedCampaigns?
         let path = "campaigns"
         let queries = [
-            URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue)
+            URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue.replacingOccurrences(of: "%0A", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: userAccessToken,
                                                  apiPath: path, apiQueries: queries,
@@ -59,9 +59,9 @@ extension PatreonAPI {
         let path = "campaigns/" + campaignID
         let queries = [
             URLQueryItem(name: "include", value: "benefits,creator,goals,tiers"),
-            URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue),
-            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue),
-            URLQueryItem(name: "fields[benefit]", value: fieldsBenefitQueryValue)
+            URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue.replacingOccurrences(of: "%0A", with: "")),
+            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue.replacingOccurrences(of: "%0A", with: "")),
+            URLQueryItem(name: "fields[benefit]", value: fieldsBenefitQueryValue.replacingOccurrences(of: "%0A", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
                                                  apiPath: path, apiQueries: queries,
@@ -82,9 +82,9 @@ extension PatreonAPI {
         let path = "campaigns/" + campaignID + "/members"
         let query = [
             URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
-            URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue),
-            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue),
-            URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue)
+            URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue.replacingOccurrences(of: "%0A", with: "")),
+            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue.replacingOccurrences(of: "%0A", with: "")),
+            URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue.replacingOccurrences(of: "%0A", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
                                                  apiPath: path, apiQueries: query,
@@ -105,9 +105,9 @@ extension PatreonAPI {
         let path = "members/" + memberID
         let query = [
             URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
-            URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue),
-            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue),
-            URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue)
+            URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue.replacingOccurrences(of: "%0A", with: "")),
+            URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue.replacingOccurrences(of: "%0A", with: "")),
+            URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue.replacingOccurrences(of: "%0A", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
                                                  apiPath: path, apiQueries: query,
