@@ -115,6 +115,15 @@ public final class PatreonAPI {
                                 tiers_count,
                                 title
                                 """
+    
+    internal let fieldsGoalQueryValue = """
+                                amount_cents,
+                                completed_percentage,
+                                created_at,
+                                description,
+                                reached_at,
+                                title
+                                """
 
     internal let fieldsMemberQueryValue = """
                                 campaign_lifetime_support_cents,

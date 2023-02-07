@@ -17,18 +17,17 @@ extension PatreonAPI {
         let returnValue: PatreonUserIdentity?
         let path = "identity"
         let queries = [
-            URLQueryItem(name: "include", value: "memberships,campaign"),
-            URLQueryItem(name: "fields[user]", value: fieldsUserQueryValue.replacingOccurrences(of: "\n", with: ""))
+            URLQueryItem(name: "include", value: "memberships.campaign,memberships.currently_entitled_tiers"),
+            URLQueryItem(name: "fields[user]", value: fieldsUserQueryValue.replacingOccurrences(of: "\n", with: "")),
+            URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue.replacingOccurrences(of: "\n", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: userAccessToken,
                                                  apiPath: path, apiQueries: queries,
                                                  returnType: PatreonUserIdentity.self)
         if let identity = fetchedData {
             returnValue = identity
-            debugPrint(identity)
         } else {
             returnValue = nil
-            debugPrint("failed to fetch identity")
         }
         return returnValue
     }
@@ -45,10 +44,8 @@ extension PatreonAPI {
                                                  returnType: PatronOwnedCampaigns.self)
         if let ownedCampaigns = fetchedData {
             returnValue = ownedCampaigns
-            debugPrint(ownedCampaigns)
         } else {
             returnValue = nil
-            debugPrint("failed to fetch ownedCampaigns")
         }
         return returnValue
     }
@@ -58,20 +55,19 @@ extension PatreonAPI {
         let returnValue: PatreonCampaignInfo?
         let path = "campaigns/" + campaignID
         let queries = [
-            URLQueryItem(name: "include", value: "benefits,creator,goals,tiers"),
+            URLQueryItem(name: "include", value: "creator,tiers,benefits,goals"),
             URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue.replacingOccurrences(of: "\n", with: "")),
             URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue.replacingOccurrences(of: "\n", with: "")),
-            URLQueryItem(name: "fields[benefit]", value: fieldsBenefitQueryValue.replacingOccurrences(of: "\n", with: ""))
+            URLQueryItem(name: "fields[benefit]", value: fieldsBenefitQueryValue.replacingOccurrences(of: "\n", with: "")),
+            URLQueryItem(name: "fields[goal]", value: fieldsGoalQueryValue.replacingOccurrences(of: "\n", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
                                                  apiPath: path, apiQueries: queries,
                                                  returnType: PatreonCampaignInfo.self)
         if let campaignData = fetchedData {
             returnValue = campaignData
-            debugPrint(campaignData)
         } else {
             returnValue = nil
-            debugPrint("failed to fetch campaignData")
         }
         return returnValue
     }
@@ -80,21 +76,19 @@ extension PatreonAPI {
     public func getMembersForCampaign() async -> PatreonCampaignMembers? {
         let returnValue: PatreonCampaignMembers?
         let path = "campaigns/" + campaignID + "/members"
-        let query = [
-            URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
+        let queries = [
+            URLQueryItem(name: "include", value: "user,address,campaign,currently_entitled_tiers"),
             URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue.replacingOccurrences(of: "\n", with: "")),
             URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue.replacingOccurrences(of: "\n", with: "")),
             URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue.replacingOccurrences(of: "\n", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
-                                                 apiPath: path, apiQueries: query,
+                                                 apiPath: path, apiQueries: queries,
                                                  returnType: PatreonCampaignMembers.self)
         if let campaignMembers = fetchedData {
             returnValue = campaignMembers
-            debugPrint(campaignMembers)
         } else {
             returnValue = nil
-            debugPrint("failed to fetch campaignMembers")
         }
         return returnValue
     }
@@ -103,21 +97,19 @@ extension PatreonAPI {
     public func getMemberForCampaignByID(memberID: String) async -> PatronFetchedByID? {
         let returnValue: PatronFetchedByID?
         let path = "members/" + memberID
-        let query = [
-            URLQueryItem(name: "include", value: "address,campaign,currently_entitled_tiers,user"),
+        let queries = [
+            URLQueryItem(name: "include", value: "user,address,campaign,currently_entitled_tiers"),
             URLQueryItem(name: "fields[member]", value: fieldsMemberQueryValue.replacingOccurrences(of: "\n", with: "")),
             URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue.replacingOccurrences(of: "\n", with: "")),
             URLQueryItem(name: "fields[address]", value: fieldsAddressQueryValue.replacingOccurrences(of: "\n", with: ""))
         ]
         let fetchedData = await fetchPatreonData(accessToken: creatorAccessToken,
-                                                 apiPath: path, apiQueries: query,
+                                                 apiPath: path, apiQueries: queries,
                                                  returnType: PatronFetchedByID.self)
         if let fetchedPatron = fetchedData {
             returnValue = fetchedPatron
-            debugPrint(fetchedPatron)
         } else {
             returnValue = nil
-            debugPrint("failed to fetch fetchedPatron")
         }
         return returnValue
     }
@@ -140,7 +132,7 @@ extension PatreonAPI {
         urlComponents.queryItems = apiQueries
         
         guard let url = urlComponents.url else { return nil }
-        debugPrint(url)
+        debugPrint("PatreonAPI: Trying to fetch data from URL: \(url)")
         
         let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
         
@@ -152,9 +144,10 @@ extension PatreonAPI {
             switch response.result {
             case .success(let value):
                 data = value
+                debugPrint("PatreonAPI: Data of type \(T.self) fetched.")
             case .failure(let error):
                 data = nil
-                debugPrint(error)
+                debugPrint("PatreonAPI: Failed to fetch data of type \(T.self). Alamofire error log: \(error)")
             }
             semaphore.signal()
         }

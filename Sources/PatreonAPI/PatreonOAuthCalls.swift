@@ -65,6 +65,8 @@ extension PatreonAPI {
         var requestResponse: PatronOAuth?
         
         guard let url = URL(string: "https://www.patreon.com/api/oauth2/token") else { return nil }
+        debugPrint("PatreonAPI: Trying to fetch data from URL: \(url)")
+
         let headers: HTTPHeaders = ["Content-Type": "application/x-www-form-urlencoded"]
         
         AF.request(url,
@@ -76,9 +78,10 @@ extension PatreonAPI {
             switch response.result {
             case .success(let data):
                 requestResponse = data
+                debugPrint("PatreonAPI: Data of type \(PatronOAuth.self) fetched.")
             case .failure(let error):
-                debugPrint(error)
                 requestResponse = nil
+                debugPrint("PatreonAPI: Failed to fetch data of type \(PatronOAuth.self). Alamofire error log: \(error)")
             }
             semaphore.signal()
         }

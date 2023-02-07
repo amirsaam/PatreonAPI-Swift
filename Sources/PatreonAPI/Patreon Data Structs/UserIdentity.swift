@@ -57,20 +57,25 @@ public struct UserIdentityData: Codable {
             }
         }
     }
+
+    public struct Relationships: Codable {
+        public let memberships: IdTypeArray
+    }
+}
+  
+public struct UserIdentityIncluded: Codable {
+    public let attributes: MembershipDataAttributes?
+    public let id: String
+    public let relationships: Relationships?
+    public let type: String
     
     public struct Relationships: Codable {
         public let campaign: Campaign?
-        public let memberships: IdTypeArray
+        public let currently_entitled_tiers: IdTypeArray
         
         public struct Campaign: Codable {
             public let data: IdType
             public let links: RelatedLink
         }
     }
-}
-  
-public struct UserIdentityIncluded: Codable {
-    public let attributes: [String: CodableAny]?
-    public let id: String
-    public let type: String
 }
