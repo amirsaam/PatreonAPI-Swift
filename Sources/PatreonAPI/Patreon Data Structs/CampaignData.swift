@@ -23,44 +23,44 @@ public struct PatreonCampaignInfo: Codable {
 
 // MARK: - Campaign General Details
 public struct CampaignData: Codable {
-    public let attributes: CampaignAttributes
+    public let attributes: CampaignDataAttributes
     public let id: String
-    public let relationships: CampaignRelationships
+    public let relationships: CampaignDataRelationships
     public let type: String
+}
+
+public struct CampaignDataAttributes: Codable {
+    public let created_at: String
+    public let creation_name: String?
+    public let discord_server_id: String?
+    public let google_analytics_id: String?
+    public let has_rss: Bool
+    public let has_sent_rss_notify: Bool
+    public let image_small_url: String
+    public let image_url: String
+    public let is_charged_immediately: Bool?
+    public let is_monthly: Bool
+    public let is_nsfw: Bool
+    public let main_video_embed: String?
+    public let main_video_url: String?
+    public let one_liner: String?
+    public let patron_count: Int
+    public let pay_per_name: String?
+    public let pledge_url: String
+    public let published_at: String?
+    public let summary: String?
+    public let thanks_embed: String?
+    public let thanks_msg: String?
+    public let thanks_video_url: String?
+    public let url: String
+    public let vanity: String?
+}
     
-    public struct CampaignAttributes: Codable {
-        public let created_at: String
-        public let creation_name: String?
-        public let discord_server_id: String?
-        public let google_analytics_id: String?
-        public let has_rss: Bool
-        public let has_sent_rss_notify: Bool
-        public let image_small_url: String
-        public let image_url: String
-        public let is_charged_immediately: Bool?
-        public let is_monthly: Bool
-        public let is_nsfw: Bool
-        public let main_video_embed: String?
-        public let main_video_url: String?
-        public let one_liner: String?
-        public let patron_count: Int
-        public let pay_per_name: String?
-        public let pledge_url: String
-        public let published_at: String?
-        public let summary: String?
-        public let thanks_embed: String?
-        public let thanks_msg: String?
-        public let thanks_video_url: String?
-        public let url: String
-        public let vanity: String?
-    }
-    
-    public struct CampaignRelationships: Codable {
-        public let benefits: IdTypeArray?
-        public let creator: Creator
-        public let goals: IdTypeArray?
-        public let tiers: IdTypeArray?
-    }
+public struct CampaignDataRelationships: Codable {
+    public let benefits: IdTypeArray?
+    public let creator: Creator
+    public let goals: IdTypeArray?
+    public let tiers: IdTypeArray?
     
     public struct Creator: Codable {
         public let data: IdType?
