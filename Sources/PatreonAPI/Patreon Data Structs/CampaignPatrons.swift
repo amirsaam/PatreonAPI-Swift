@@ -31,7 +31,7 @@ public struct CampaignMemberData: Codable {
 }
 
 public struct MembershipDataAttributes: Codable {
-    public let campaign_lifetime_support_cents: Int?
+    public let campaign_lifetime_support_cents: Int
     public let currently_entitled_amount_cents: Int
     public let email: String?
     public let full_name: String
