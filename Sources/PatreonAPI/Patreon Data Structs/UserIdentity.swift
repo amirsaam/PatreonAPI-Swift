@@ -17,7 +17,7 @@ public struct PatreonUserIdentity: Codable {
 public struct UserIdentityData: Codable {
     public let attributes: Attributes
     public let id: String
-    public let relationships: Relationships?
+    public let relationships: Relationships
     public let type: String
     
     public struct Attributes: Codable {
@@ -64,7 +64,7 @@ public struct UserIdentityData: Codable {
 }
   
 public struct UserIdentityIncluded: Codable {
-    public let attributes: [String: CodableAny]?
+    public let attributes: MembershipDataAttributes?
     public let id: String
     public let relationships: Relationships?
     public let type: String
