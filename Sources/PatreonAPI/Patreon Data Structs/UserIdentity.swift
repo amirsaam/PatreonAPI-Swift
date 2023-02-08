@@ -64,7 +64,7 @@ public struct UserIdentityData: Codable {
 }
   
 public struct UserIdentityIncluded: Codable {
-    public let attributes: [String: CodableAny]?
+    public let attributes: [String: CodableAny]
     public let id: String
     public let relationships: Relationships?
     public let type: String
