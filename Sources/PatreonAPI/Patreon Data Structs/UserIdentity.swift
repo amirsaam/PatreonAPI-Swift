@@ -10,7 +10,7 @@ import CodableAny
 
 public struct PatreonUserIdentity: Codable {
     public let data: UserIdentityData
-    public let included: [UserIdentityIncludedAny]?
+    public let included: [UserIdentityIncludedAny]
     public let links: SelfLink
 }
 
