@@ -42,7 +42,7 @@ public struct MembershipDataAttributes: Codable {
     public let next_charge_date: String?
     public let note: String?
     public let patron_status: String?
-    public let pledge_cadence: Int
+    public let pledge_cadence: Int?
     public let pledge_relationship_start: String?
     public let will_pay_amount_cents: Int
 }
