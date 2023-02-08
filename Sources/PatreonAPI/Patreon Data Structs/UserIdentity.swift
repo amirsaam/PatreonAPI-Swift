@@ -64,13 +64,13 @@ public struct UserIdentityData: Codable {
 }
   
 public struct UserIdentityIncluded: Codable {
-    public let attributes: MembershipDataAttributes?
+    public let attributes: [String: CodableAny]?
     public let id: String
     public let relationships: Relationships?
     public let type: String
     
     public struct Relationships: Codable {
-        public let campaign: Campaign?
+        public let campaign: Campaign
         public let currently_entitled_tiers: IdTypeArray
         
         public struct Campaign: Codable {
