@@ -15,7 +15,7 @@ import PackageDescription
 
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/amirsaam/PatreonAPI-Swift.git", from: "0.9.9"),
+        .package(url: "https://github.com/amirsaam/PatreonAPI-Swift.git", from: "0.9.00"),
     ]
 )
 ```
