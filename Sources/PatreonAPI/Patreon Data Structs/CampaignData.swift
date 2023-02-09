@@ -74,6 +74,7 @@ public struct CampaignDataRelationships: Codable {
 public struct CampaignIncludedAny: Codable {
     public let attributes: [String: CodableAny]
     public let id: String
+    public let relationships: CampaignIncludedRelationship?
     public let type: String
 }
 
@@ -88,5 +89,11 @@ public struct CampaignIncludedTier: Codable {
 public struct CampaignIncludedBenefit: Codable {
     public let attributes: CampaignBenefitAttributes
     public let id: String
+    public let relationships: CampaignIncludedRelationship?
     public let type: String
+}
+
+//
+public struct CampaignIncludedRelationship: Codable {
+    public let tiers: IdTypeArray
 }

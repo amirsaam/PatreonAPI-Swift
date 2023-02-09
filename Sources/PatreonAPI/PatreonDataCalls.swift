@@ -55,7 +55,7 @@ extension PatreonAPI {
         let returnValue: PatreonCampaignInfo?
         let path = "campaigns/" + campaignID
         let queries = [
-            URLQueryItem(name: "include", value: "creator,tiers,benefits,goals"),
+            URLQueryItem(name: "include", value: "creator,tiers,benefits.tiers,goals"),
             URLQueryItem(name: "fields[campaign]", value: fieldsCampaignQueryValue.replacingOccurrences(of: "\n", with: "")),
             URLQueryItem(name: "fields[tier]", value: fieldsTierQueryValue.replacingOccurrences(of: "\n", with: "")),
             URLQueryItem(name: "fields[benefit]", value: fieldsBenefitQueryValue.replacingOccurrences(of: "\n", with: "")),

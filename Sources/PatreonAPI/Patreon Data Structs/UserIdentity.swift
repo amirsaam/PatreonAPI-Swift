@@ -8,12 +8,14 @@
 import Foundation
 import CodableAny
 
+// MARK: - Identity of a Signed In User
 public struct PatreonUserIdentity: Codable {
     public let data: UserIdentityData
     public let included: [UserIdentityIncludedAny]
     public let links: SelfLink
 }
 
+// MARK: - Identity General Details
 public struct UserIdentityData: Codable {
     public let attributes: Attributes
     public let id: String
@@ -62,43 +64,39 @@ public struct UserIdentityData: Codable {
         public let memberships: IdTypeArray
     }
 }
-  
+
+// MARK: - Identity Included Data
+
+/// Used to retrive both `UserIdentityIncludedMembership` and `UserIdentityIncludedCampaign` at the same time.
 public struct UserIdentityIncludedAny: Codable {
     public let attributes: [String: CodableAny]
     public let id: String
-    public let relationships: Relationships?
+    public let relationships: UserIdentityIncludedRelationships?
     public let type: String
-    
-    public struct Relationships: Codable {
-        public let campaign: Campaign
-        public let currently_entitled_tiers: IdTypeArray
-        
-        public struct Campaign: Codable {
-            public let data: IdType
-            public let links: RelatedLink
-        }
-    }
 }
 
+/// For decoding `UserIdentityIncludedAny` based on `type == "member"`
 public struct UserIdentityIncludedMembership: Codable {
     public let attributes: MembershipDataAttributes
     public let id: String
-    public let relationships: Relationships
+    public let relationships: UserIdentityIncludedRelationships
     public let type: String
-    
-    public struct Relationships: Codable {
-        public let campaign: Campaign
-        public let currently_entitled_tiers: IdTypeArray
-        
-        public struct Campaign: Codable {
-            public let data: IdType
-            public let links: RelatedLink
-        }
-    }
 }
 
+/// For decoding `UserIdentityIncludedAny` based on `type == "campaign"`
 public struct UserIdentityIncludedCampaign: Codable {
     public let attributes: CampaignDataAttributes
     public let id: String
     public let type: String
+}
+
+//
+public struct UserIdentityIncludedRelationships: Codable {
+    public let campaign: Campaign
+    public let currently_entitled_tiers: IdTypeArray
+    
+    public struct Campaign: Codable {
+        public let data: IdType
+        public let links: RelatedLink
+    }
 }
