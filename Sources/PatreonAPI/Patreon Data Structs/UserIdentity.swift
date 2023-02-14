@@ -87,6 +87,7 @@ public struct UserIdentityIncludedMembership: Codable {
 public struct UserIdentityIncludedCampaign: Codable {
     public let attributes: CampaignDataAttributes
     public let id: String
+    public let relationships: UserIdentityIncludedRelationships
     public let type: String
 }
 
