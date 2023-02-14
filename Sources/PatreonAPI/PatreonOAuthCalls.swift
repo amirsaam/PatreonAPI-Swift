@@ -8,18 +8,13 @@
 import Foundation
 import Alamofire
 import Semaphore
-
-#if os(iOS)
-import UIKit
-#elseif os(macOS)
-import AppKit
-#endif
+import AuthenticationServices
 
 // MARK: - Patreon OAuth Calls
 extension PatreonAPI {
     
     // 1st OAuth Call
-    public func doOAuth() {
+    public func doOAuth(callbackScheme: String) async -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "www.patreon.com"
@@ -29,12 +24,27 @@ extension PatreonAPI {
             URLQueryItem(name: "client_id", value: clientID),
             URLQueryItem(name: "redirect_uri", value: redirectURI)
         ]
-        guard let url = urlComponents.url else { return }
-        #if os(iOS)
-            UIApplication.shared.open(url)
-        #elseif os(macOS)
-            NSWorkspace.shared.open(url)
-        #endif
+        guard let url = urlComponents.url else { return nil }
+        
+        var returnedURL: URL?
+        let semaphore = AsyncSemaphore(value: 0)
+
+        let session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackScheme) { (callbackURL, error) in
+            guard error == nil, let callbackURL = callbackURL else {
+                // Handle the error here
+                debugPrint("PatreonAPI: Failed to do Authentication. Error log: \(String(describing: error))")
+                returnedURL = nil
+                semaphore.signal()
+                return
+            }
+            // Handle the successful authentication here, using the `callbackURL`
+            returnedURL = callbackURL
+            semaphore.signal()
+        }
+        session.start()
+        await semaphore.wait()
+
+        return returnedURL
     }
     
     // Get User Tokens
