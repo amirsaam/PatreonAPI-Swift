@@ -82,7 +82,6 @@ public struct CampaignIncludedAny: Codable {
 public struct CampaignIncludedTier: Codable {
     public let attributes: CampaignTierAttributes
     public let id: String
-    public let relationships: CampaignIncludedRelationship
     public let type: String
 }
 
