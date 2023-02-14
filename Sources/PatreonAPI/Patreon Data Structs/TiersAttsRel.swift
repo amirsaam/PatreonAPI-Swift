@@ -16,7 +16,7 @@ public struct CampaignTierAttributes: Codable {
     public let amount_cents: Int
     public let created_at: String
     public let description: String?
-    public let discord_role_ids: [String: String]?
+    public let discord_role_ids: [String]?
     public let edited_at: String
     public let image_url: String?
     public let patron_count: Int
