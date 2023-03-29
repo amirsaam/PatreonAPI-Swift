@@ -54,7 +54,7 @@ public struct UserIdentityData: Codable {
             
             public struct SocialConnectionsData: Codable {
                 public let scopes: [String]?
-                public let url: String
+                public let url: String?
                 public let user_id: String
             }
         }
