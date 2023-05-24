@@ -13,7 +13,7 @@ public struct IdType: Codable {
 }
 
 public struct IdTypePlain: Codable {
-    public let data: InnerData
+    public let data: InnerData?
     
     public struct InnerData: Codable {
         public let id: String
