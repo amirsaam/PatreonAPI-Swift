@@ -59,7 +59,7 @@ public struct CampaignDataAttributes: Codable {
 public struct CampaignDataRelationships: Codable {
     public let benefits: IdTypeArray?
     public let creator: Creator
-    public let goals: IdTypeArray?
+    public let goals: IdTypePlain?
     public let tiers: IdTypeArray?
     
     public struct Creator: Codable {
