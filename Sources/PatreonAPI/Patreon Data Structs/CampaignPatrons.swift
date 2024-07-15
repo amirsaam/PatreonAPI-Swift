@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CodableAny
+import AnyCodable
 
 // MARK: - Campaign's Patrons List
 public struct PatreonCampaignMembers: Codable {
@@ -60,7 +60,7 @@ public struct MembershipDataRelationships: Codable {
 
 // MARK: - Members' Included Data
 public struct CampaignMemberIncluded: Codable {
-    public let attributes: [String: CodableAny]?
+    public let attributes: [String: AnyCodable]?
     public let id: String
     public let type: String
 }

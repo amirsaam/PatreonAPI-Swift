@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CodableAny
+import AnyCodable
 
 // MARK: - Campaigns owned by a User
 public struct PatronOwnedCampaigns: Codable {
@@ -72,7 +72,7 @@ public struct CampaignDataRelationships: Codable {
 
 /// Used to retrive both `CampaignIncludedTier` and `CampaignIncludedBenefit` at the same time.
 public struct CampaignIncludedAny: Codable {
-    public let attributes: [String: CodableAny]
+    public let attributes: [String: AnyCodable]
     public let id: String
     public let relationships: CampaignIncludedRelationship?
     public let type: String
