@@ -10,12 +10,12 @@
       }
     },
     {
-      "identity" : "anycodable",
+      "identity" : "codableany",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Flight-School/AnyCodable.git",
+      "location" : "https://github.com/amirsaam/CodableAny.git",
       "state" : {
-        "revision" : "862808b2070cd908cb04f9aafe7de83d35f81b05",
-        "version" : "0.6.7"
+        "revision" : "eec6d8e967ff9489e9a20a83d081585e6799bd70",
+        "version" : "0.1.0"
       }
     },
     {

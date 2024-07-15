@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AnyCodable
+import CodableAny
 
 // MARK: - Identity of a Signed In User
 public struct PatreonUserIdentity: Codable {
@@ -69,7 +69,7 @@ public struct UserIdentityData: Codable {
 
 /// Used to retrive both `UserIdentityIncludedMembership` and `UserIdentityIncludedCampaign` at the same time.
 public struct UserIdentityIncludedAny: Codable {
-    public let attributes: [String: AnyCodable]
+    public let attributes: [String: CodableAny]
     public let id: String
     public let relationships: UserIdentityIncludedRelationships?
     public let type: String

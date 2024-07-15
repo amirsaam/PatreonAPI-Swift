@@ -91,7 +91,7 @@ then you can pass `patreonCallbackCode` to the `getOAuthTokens` function.
 ## A Problem in Patreon's API
 
 Unfortunately, when I was trying to retrieve all data about Creator's campaign, I have encountered a bizarre situation where returning data with same name with no any distinguishing ability could have various structures and I needed to just use them with native Swift experience with decoding structs.
-So I made something called [AnyCodable](https://github.com/Flight-School/AnyCodable) from Flight-School for fixing my own issue.
+So I made something called [CodableAny](https://github.com/amirsaam/CodableAny) (that is in this package's dependencies) for fixing my own issue.
 Basically when we call `getDataForCampaign` function, we will return:
 ```swift
 public struct PatreonCampaignInfo: Codable {
@@ -103,7 +103,7 @@ public struct PatreonCampaignInfo: Codable {
 and `CampaignIncludedAny` is:
 ```swift
 public struct CampaignIncludedAny: Codable {
-    public let attributes: [String: AnyCodable]
+    public let attributes: [String: CodableAny]
     public let id: String
     public let type: String
 }
@@ -164,7 +164,7 @@ For more information about decoding structs please go to [this directory](https:
 
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [Semaphore](https://github.com/groue/Semaphore)
-- [AnyCodable](https://github.com/Flight-School/AnyCodable)
+- [CodableAny](https://github.com/amirsaam/CodableAny)
 
 ## Meta
 
